@@ -9,13 +9,16 @@ contract Protocol108 {
 	uint public length = 6480;
 
 	// last time protocol was executed
-	uint public offset;
+	uint offset;
 
 	// last executor of the protocol
-	address public executor;
+	address executor;
 
 	// number of times protocol was executed
-	uint public cycle;
+	uint cycle;
+
+	// balance available as reward
+	uint balance;
 
 	// creates the protocol
 	function Protocol108() {
@@ -28,6 +31,9 @@ contract Protocol108 {
 
 		// validate input(s)
 		require(msg.value > 0);
+
+		// balance update
+		balance += msg.value;
 
 		// init the protocol
 		offset = now;
@@ -48,6 +54,12 @@ contract Protocol108 {
 		// validate input(s)
 		require(msg.value > 0);
 
+		// overflow check
+		assert(balance + msg.value > balance);
+
+		// balance update
+		balance += msg.value;
+
 		// update the protocol
 		offset = now;
 
@@ -64,16 +76,27 @@ contract Protocol108 {
 		assert(cycle > 0);
 		assert(offset + length <= now);
 
+		// value to transfer
+		uint value = balance;
+
+		// balance update
+		balance = 0;
+
 		// transfer the reward to last executor
-		executor.transfer(this.balance);
+		executor.transfer(value);
 	}
 
 	// number of seconds left until protocol terminates
 	function countdown() constant returns (uint) {
 		uint n = now;
+
+		// check for negative overflow
 		if(offset + length > n) {
+			// positive countdown
 			return offset + length - n;
 		}
+
+		// zero or negative countdown
 		return 0;
 	}
 
@@ -88,7 +111,7 @@ contract Protocol108 {
 			// protocol is eligible for execution, execute
 			execute();
 		}
-		else if(this.balance > 0) {
+		else if(balance > 0) {
 			// protocol has terminated, withdraw the reward
 			withdraw();
 		}
