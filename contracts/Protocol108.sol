@@ -19,10 +19,13 @@ contract Protocol108 {
 
 	// creates the protocol
 	function Protocol108(uint _length) {
-		// validate input(s)
+		// correct length if required, valid values are:
 		// 108 minutes in production mode
 		// 108 seconds in test mode
-		require(_length == 108 || _length == 6480);
+		if(_length != 108 && _length != 6480) {
+			// set to production mode, 108 minutes
+			_length = 6480;
+		}
 
 		// setup the protocol
 		length = _length;
