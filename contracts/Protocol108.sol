@@ -6,7 +6,7 @@ pragma solidity 0.4.15;
 // Failure to do so releases the reward to the last executor
 contract Protocol108 {
 	// countdown timer reset value
-	uint public length;
+	uint public length = 6480;
 
 	// last time protocol was executed
 	uint public offset;
@@ -19,16 +19,6 @@ contract Protocol108 {
 
 	// creates the protocol
 	function Protocol108(uint _length) {
-		// correct length if required, valid values are:
-		// 108 minutes in production mode
-		// 108 seconds in test mode
-		if(_length != 108 && _length != 6480) {
-			// set to production mode, 108 minutes
-			_length = 6480;
-		}
-
-		// setup the protocol
-		length = _length;
 	}
 
 	// initializes the protocol
