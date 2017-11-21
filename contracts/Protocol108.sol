@@ -6,7 +6,7 @@ pragma solidity 0.4.15;
 // Failure to do so releases the reward to the last executor
 contract Protocol108 {
 	// countdown timer reset value
-	uint public length = 6480;
+	uint length = 6480;
 
 	// last time protocol was executed
 	uint offset;
@@ -16,9 +16,6 @@ contract Protocol108 {
 
 	// number of times protocol was executed
 	uint cycle;
-
-	// balance available as reward
-	uint balance;
 
 	// creates the protocol
 	function Protocol108() {
@@ -31,9 +28,6 @@ contract Protocol108 {
 
 		// validate input(s)
 		require(msg.value > 0);
-
-		// balance update
-		balance += msg.value;
 
 		// init the protocol
 		offset = now;
@@ -54,12 +48,6 @@ contract Protocol108 {
 		// validate input(s)
 		require(msg.value > 0);
 
-		// overflow check
-		assert(balance + msg.value > balance);
-
-		// balance update
-		balance += msg.value;
-
 		// update the protocol
 		offset = now;
 
@@ -76,14 +64,14 @@ contract Protocol108 {
 		assert(cycle > 0);
 		assert(offset + length <= now);
 
-		// value to transfer
-		uint value = balance;
+		// validate input(s)
+		require(msg.sender == executor);
 
-		// balance update
-		balance = 0;
+		// reset cycle count
+		cycle = 0;
 
-		// transfer the reward to last executor
-		executor.transfer(value);
+		// transfer the reward
+		executor.transfer(this.balance);
 	}
 
 	// number of seconds left until protocol terminates
@@ -111,7 +99,7 @@ contract Protocol108 {
 			// protocol is eligible for execution, execute
 			execute();
 		}
-		else if(balance > 0) {
+		else if(this.balance > 0) {
 			// protocol has terminated, withdraw the reward
 			withdraw();
 		}
