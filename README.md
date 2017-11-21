@@ -16,8 +16,8 @@ The idea behind the protocol is to make participants execute the protocol at lea
 ### The Simplest Implementation Consideration
 The *creator* deploys a **Protocol 108** smart contract into the network and initializes it with the initial value – *the reward*. After the initialization the *countdown* starts from 108 minutes and the creator becomes the *last executor*.
 
-The protocol *shuts down* if the countdown reaches zero, meaning the protocol is not executed within 108 minutes timeframe.
+The protocol *terminates* if the countdown reaches zero, meaning the protocol is not executed within 108 minutes timeframe.
 
 During the countdown anyone can send some value to the protocol in order to execute it, adding this value to the reward, reseting the countdown back to 108 minutes and becoming the last executor.
 
-If the protocol shuts down, the last executor receives the reward.
+If the protocol is terminated, the last executor receives the reward.
