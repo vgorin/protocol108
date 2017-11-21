@@ -11,7 +11,7 @@ The protocol can be considered as a psychological test, aimed at making particip
 We propose a blockchain-based implementation of the **Protocol 108**, based on the economical motivation and demotivation.
 
 ## The Concept
-The idea behind the protocol is to make participants to execute the protocol at least once every 108 minutes.
+The idea behind the protocol is to make participants execute the protocol at least once every 108 minutes.
 
 ### The Simplest Implementation Consideration
 The *creator* deploys a **Protocol 108** smart contract into the network and initializes it with the initial value – *the reward*. After the initialization the *countdown* starts from 108 minutes and the creator becomes the *last executor*.
