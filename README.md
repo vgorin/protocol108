@@ -20,4 +20,4 @@ The protocol *terminates* if the countdown reaches zero, meaning the protocol is
 
 During the countdown anyone can send some value to the protocol in order to execute it, adding this value to the reward, reseting the countdown back to 108 minutes and becoming the last executor.
 
-If the protocol is terminated, the last executor receives the reward.
+The last executor receives the reward as soon as protocol terminates.
