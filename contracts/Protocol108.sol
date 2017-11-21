@@ -88,9 +88,13 @@ contract Protocol108 {
 			// protocol is eligible for execution, execute
 			execute();
 		}
-		else {
+		else if(this.balance > 0) {
 			// protocol has terminated, withdraw the reward
 			withdraw();
+		}
+		else {
+			// invalid protocol state
+			revert();
 		}
 	}
 
