@@ -18,7 +18,7 @@ contract Protocol108 {
 	uint public cycle;
 
 	// creates the protocol
-	function Protocol108(uint _length) {
+	function Protocol108() {
 	}
 
 	// initializes the protocol
