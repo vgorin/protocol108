@@ -1,0 +1,8 @@
+syntax:glob
+
+build/
+.idea/
+*.iws
+*.iml
+*.ipr
+
