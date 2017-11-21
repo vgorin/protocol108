@@ -92,7 +92,7 @@ contract Protocol108 {
 			initialize();
 		}
 		else if(offset + length > now) {
-			// protocol is eligable for execution, execute
+			// protocol is eligible for execution, execute
 			execute();
 		}
 		else {
