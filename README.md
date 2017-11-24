@@ -21,3 +21,13 @@ The protocol *terminates* if the countdown reaches zero, meaning the protocol is
 During the countdown anyone can send some value to the protocol in order to execute it, adding this value to the reward, reseting the countdown back to 108 minutes and becoming the last executor.
 
 The last executor receives the reward as soon as protocol terminates.
+
+## Implementation
+### 0.1-alpha
+Ethereum-based implementation consists of single smart contract – protocol 108 implementation.
+
+#### Version 0.1-alpha Deployed
+**Ropsten**: 0x8B9Bf107dd7e7De61e1f53e5cD82F80b1a7aD69A
+
+**Rinkeby**: 0x2101AFC83D432F211b06dE08c41681E8F2685357
+
