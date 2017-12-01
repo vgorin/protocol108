@@ -18,11 +18,11 @@ contract Protocol108 {
 	uint cycle;
 
 	// creates the protocol
-	function Protocol108() {
+	function Protocol108() public {
 	}
 
 	// initializes the protocol
-	function initialize() payable {
+	function initialize() public payable {
 		// validate protocol state
 		assert(cycle == 0);
 
@@ -40,7 +40,7 @@ contract Protocol108 {
 	}
 
 	// executes the protocol
-	function execute() payable {
+	function execute() public payable {
 		// validate protocol state
 		assert(cycle > 0);
 		assert(offset + length > now);
@@ -59,7 +59,7 @@ contract Protocol108 {
 	}
 
 	// withdraws the reward to the last executor
-	function withdraw() {
+	function withdraw() public {
 		// validate protocol state
 		assert(cycle > 0);
 		assert(offset + length <= now);
@@ -75,7 +75,7 @@ contract Protocol108 {
 	}
 
 	// number of seconds left until protocol terminates
-	function countdown() constant returns (uint) {
+	function countdown() public constant returns (uint) {
 		uint n = now;
 
 		// check for negative overflow
@@ -90,7 +90,7 @@ contract Protocol108 {
 
 	// the default payable function, performs one of
 	// initialize(), execute() or withdraw() depending on protocol state
-	function() payable {
+	function() public payable {
 		if(cycle == 0) {
 			// protocol not yet initialized, try to initialize
 			initialize();
