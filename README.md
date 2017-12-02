@@ -38,7 +38,7 @@ Active protocol terminates once it is not executed for 108 minutes. Terminated p
 Last executor can send any value to it to withdraw the reward. Once this happens, protocol state changes back to inactive.
 
 #### Try It Out!
-**Ropsten**: [``0x45FDAa39327081089b3a6C7C53cea8304CdCb5E8``](https://ropsten.etherscan.io/address/0x45fdaa39327081089b3a6c7c53cea8304cdcb5e8)
+**Ropsten**: [``0xd994108d2fcbd5feaaf7045205f1cb4f8d0432db``](https://ropsten.etherscan.io/address/0xd994108d2fcbd5feaaf7045205f1cb4f8d0432db)
 
 ### Known Issues
 Issues to address in future releases:
