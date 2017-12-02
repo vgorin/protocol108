@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Protocol108: Countdown</title>
+</head>
+<body>
+<table>
+	<tr><td>protocol address:</td><td id="address">N/A</td></tr>
+	<tr><td>protocol version:</td><td id="version">N/A</td></tr>
+	<tr><td>protocol cycle:</td><td id="cycle">N/A</td></tr>
+	<tr><td>protocol state:</td><td id="state">N/A</td></tr>
+	<tr><td>countdown value:</td><td id="countdown">N/A</td></tr>
+	<tr><td>last executor:</td><td id="executor">N/A</td></tr>
+</table>
+</body>
+<script type="text/javascript">
+	const protocol108Address = "0xD994108D2fCbD5feAAf7045205F1cB4f8D0432Db";
+	const protocol108abi = [
+		{
+			"constant": true,
+			"inputs": [],
+			"name": "version",
+			"outputs": [
+				{
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": true,
+			"inputs": [],
+			"name": "cycle",
+			"outputs": [
+				{
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": true,
+			"inputs": [],
+			"name": "executor",
+			"outputs": [
+				{
+					"name": "",
+					"type": "address"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": true,
+			"inputs": [],
+			"name": "countdown",
+			"outputs": [
+				{
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		}
+	];
+
+	const version = document.getElementById("version");
+	const cycle = document.getElementById("cycle");
+	const state = document.getElementById("state");
+	const countdown = document.getElementById("countdown");
+	const executor = document.getElementById("executor");
+
+	if (typeof web3 !== 'undefined') {
+		const protocol108 = web3.eth.contract(protocol108abi).at(protocol108Address);
+
+		address.innerHTML = protocol108Address;
+
+		protocol108.version(function(error, result) {
+			version.innerText = result.toNumber();
+		});
+
+		protocol108.countdown(function(error, result) {
+			const countdownValue = result.toNumber();
+
+			countdown.innerText = (countdownValue / 60 | 0) + ":" + (countdownValue % 60) + "";
+
+			protocol108.cycle(function(error, result) {
+				const cycleValue = result.toNumber();
+				cycle.innerHTML = cycleValue;
+				state.innerHTML = cycleValue > 0? countdownValue > 0? "ACTIVE": "TERMINATED" : "INACTIVE"
+			});
+		});
+
+		protocol108.executor(function(error, result) {
+			executor.innerText = result.toString();
+		});
+
+	}
+	else {
+		// not a web3 browser
+
+	}
+</script>
+</html>
