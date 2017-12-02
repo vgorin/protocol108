@@ -93,7 +93,18 @@
 		protocol108.countdown(function(error, result) {
 			const countdownValue = result.toNumber();
 
-			countdown.innerText = (countdownValue / 60 | 0) + ":" + (countdownValue % 60) + "";
+			var countdownMinutes = countdownValue / 60 | 0;
+			var countdownSeconds = countdownValue % 60;
+
+			countdownMinutes = pad(countdownMinutes, 2);
+			countdownSeconds = pad(countdownSeconds, 2);
+
+			if(countdownValue > 0) {
+				countdown.innerHTML = countdownMinutes + ":" + countdownSeconds;
+			}
+			else {
+				countdown.innerHTML = "𓋴𓏲𓍒:𓄿𓏱";
+			}
 
 			protocol108.cycle(function(error, result) {
 				const cycleValue = result.toNumber();
@@ -110,6 +121,14 @@
 	else {
 		// not a web3 browser
 
+	}
+
+	function pad(num, size) {
+		var s = num + "";
+		while (s.length < size) {
+			s = "0" + s;
+		}
+		return s;
 	}
 </script>
 </html>
