@@ -33,14 +33,8 @@ contract Protocol108 {
 		// validate input(s)
 		require(msg.value > 0);
 
-		// init the protocol
-		offset = now;
-
-		// set the last executor
-		executor = msg.sender;
-
-		// finish initialization
-		cycle++;
+		// update the protocol
+		update();
 	}
 
 	// executes the protocol
@@ -53,13 +47,7 @@ contract Protocol108 {
 		require(msg.value > 0);
 
 		// update the protocol
-		offset = now;
-
-		// update last executor
-		executor = msg.sender;
-
-		// update the cycle
-		cycle++;
+		update();
 	}
 
 	// withdraws the reward to the last executor
@@ -78,8 +66,28 @@ contract Protocol108 {
 		executor.transfer(this.balance);
 	}
 
+	// updates the protocol state by
+	// updating offset, last executor and cycle count
+	function update() private {
+		// update offset (last execution time)
+		offset = now;
+
+		// update last executor
+		executor = msg.sender;
+
+		// update cycle
+		cycle++;
+	}
+
 	// number of seconds left until protocol terminates
 	function countdown() public constant returns (uint) {
+		// check if protocol is initialized
+		if(cycle == 0) {
+			// for uninitialized protocol its equal to length
+			return length;
+		}
+
+		// for active/terminated protocol calculate the value
 		uint n = now;
 
 		// check for negative overflow

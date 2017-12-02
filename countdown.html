@@ -12,10 +12,11 @@
 	<tr><td>protocol state:</td><td id="state">N/A</td></tr>
 	<tr><td>countdown value:</td><td id="countdown">N/A</td></tr>
 	<tr><td>last executor:</td><td id="executor">N/A</td></tr>
+	<tr><td>current reward:</td><td id="reward">N/A</td></tr>
 </table>
 </body>
 <script type="text/javascript">
-	const protocol108Address = "0xD994108D2fCbD5feAAf7045205F1cB4f8D0432Db";
+	const protocol108Address = "0xDb4D1856A3aa8b6762C0b520DC274Ae77011B4A6";
 	const protocol108abi = [
 		{
 			"constant": true,
@@ -80,6 +81,7 @@
 	const state = document.getElementById("state");
 	const countdown = document.getElementById("countdown");
 	const executor = document.getElementById("executor");
+	const reward = document.getElementById("reward");
 
 	if (typeof web3 !== 'undefined') {
 		const protocol108 = web3.eth.contract(protocol108abi).at(protocol108Address);
@@ -117,6 +119,9 @@
 			executor.innerText = result.toString();
 		});
 
+		web3.eth.getBalance(protocol108Address, function(error, result) {
+			reward.innerHTML = web3.fromWei(result.toNumber(), "ether") + " ETH";
+		});
 	}
 	else {
 		// not a web3 browser
