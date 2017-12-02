@@ -23,11 +23,29 @@ During the countdown anyone can send some value to the protocol in order to exec
 The last executor receives the reward as soon as protocol terminates.
 
 ## Implementation
-### 0.1-alpha
-Ethereum-based implementation consists of single smart contract – protocol 108 implementation.
+### Version 1: MVP
+Protocol lifecycle consists of three states: inactive, active, terminated.
 
-#### Version 0.1-alpha Deployed
-**Ropsten**: 0x8B9Bf107dd7e7De61e1f53e5cD82F80b1a7aD69A
+#### Inactive
+This is the initial state of the protocol, the protocol is deployed in this state. Protocol balance is zero and countdown timer is stopped.
 
-**Rinkeby**: 0x2101AFC83D432F211b06dE08c41681E8F2685357
+#### Active
+Inactive protocol may be executed at any moment by sending a value to it. Once the protocol is executed it becomes active.
 
+#### Terminated
+Active protocol terminates once it is not executed for 108 minutes. Terminated protocol cannot be executed.
+
+Last executor can send any value to it to withdraw the reward. Once this happens, protocol state changes back to inactive.
+
+#### Try It Out!
+**Ropsten**: [``0x45FDAa39327081089b3a6C7C53cea8304CdCb5E8``](https://ropsten.etherscan.io/address/0x45fdaa39327081089b3a6c7c53cea8304cdcb5e8)
+
+### Known Issues
+Issues to address in future releases:
+1. There is no motivation to initiate the protocol, moving its state from inactive into active.
+2. [The numbers (4 8 15 16 23 42)](http://lostpedia.wikia.com/wiki/The_numbers) are not used in the protocol.
+
+## See Also
++ [Mythology of Lost](https://en.wikipedia.org/wiki/Mythology_of_Lost)
++ [The Lost Encyclopedia](http://lostpedia.wikia.com/wiki/Main_Page)
++ [The Button Experiment on Reddit](https://www.reddit.com/r/thebutton/)

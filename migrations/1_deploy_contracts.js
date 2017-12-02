@@ -1,5 +1,5 @@
-module.exports = function(deployer, network, accounts) {
-	var Protocol108 = artifacts.require("./Protocol108.sol");
+module.exports = async function(deployer, network, accounts) {
+	const Protocol108 = artifacts.require("./Protocol108.sol");
 
-	deployer.deploy(Protocol108);
+	await deployer.deploy(Protocol108);
 };

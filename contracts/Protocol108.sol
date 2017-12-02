@@ -5,6 +5,9 @@ pragma solidity 0.4.18;
 // The protocol must be executed at least once every 108 minutes
 // Failure to do so releases the reward to the last executor
 contract Protocol108 {
+	// smart contract version
+	uint public version = 1;
+
 	// countdown timer reset value
 	uint length = 6480;
 
@@ -12,7 +15,7 @@ contract Protocol108 {
 	uint offset;
 
 	// last executor of the protocol
-	address executor;
+	address public executor;
 
 	// number of times protocol was executed
 	uint cycle;
