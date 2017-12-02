@@ -18,7 +18,8 @@ contract Protocol108 {
 	address public executor;
 
 	// number of times protocol was executed
-	uint cycle;
+	// zero value means protocol is in initialization state
+	uint public cycle;
 
 	// creates the protocol
 	function Protocol108() public {
