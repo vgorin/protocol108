@@ -3,6 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Protocol108: Countdown</title>
+	<style type="text/css">
+		body {
+			font-family: monospace;
+		}
+	</style>
 </head>
 <body>
 <table>
@@ -12,6 +17,7 @@
 	<tr><td>countdown value:</td><td id="countdown">N/A</td></tr>
 	<tr><td>last executor:</td><td id="executor">N/A</td></tr>
 	<tr><td>current reward:</td><td id="reward">N/A</td></tr>
+	<tr><td>protocol volume:</td><td id="volume">N/A</td></tr>
 </table>
 </body>
 <script type="text/javascript">
@@ -62,6 +68,20 @@
 		{
 			"constant": true,
 			"inputs": [],
+			"name": "volume",
+			"outputs": [
+				{
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": true,
+			"inputs": [],
 			"name": "countdown",
 			"outputs": [
 				{
@@ -80,6 +100,7 @@
 	const countdown = document.getElementById("countdown");
 	const executor = document.getElementById("executor");
 	const reward = document.getElementById("reward");
+	const volume = document.getElementById("volume");
 
 	if (typeof web3 !== 'undefined') {
 		const protocol108 = web3.eth.contract(protocol108abi).at(protocol108Address);
@@ -118,6 +139,10 @@
 
 		web3.eth.getBalance(protocol108Address, function(error, result) {
 			reward.innerHTML = web3.fromWei(result.toNumber(), "ether") + " ETH";
+		});
+
+		protocol108.volume(function(error, result) {
+			volume.innerHTML = web3.fromWei(result.toNumber(), "ether") + " ETH";
 		});
 	}
 	else {
