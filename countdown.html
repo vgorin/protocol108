@@ -10,7 +10,8 @@
 	</style>
 </head>
 <body>
-<table>
+<div id="legacy_content">Loading...</div>
+<table id="web3_content" style="display: none;">
 	<tr><td>protocol address:</td><td id="address">N/A</td></tr>
 	<tr><td>protocol version:</td><td id="version">N/A</td></tr>
 	<tr><td>protocol state:</td><td id="state">N/A</td></tr>
@@ -18,6 +19,8 @@
 	<tr><td>last executor:</td><td id="executor">N/A</td></tr>
 	<tr><td>current reward:</td><td id="reward">N/A</td></tr>
 	<tr><td>protocol volume:</td><td id="volume">N/A</td></tr>
+	<tr><td></td><td><input type="button" value="Execute the Protocol" onclick="execute(4815162342000000)">
+	<input type="button" value="Refresh State" onclick="update()"></td></tr>
 </table>
 </body>
 <script type="text/javascript">
@@ -102,52 +105,77 @@
 	const reward = document.getElementById("reward");
 	const volume = document.getElementById("volume");
 
+	const legacyContent = document.getElementById("legacy_content");
+	const web3Content = document.getElementById("web3_content");
+
 	if (typeof web3 !== 'undefined') {
 		const protocol108 = web3.eth.contract(protocol108abi).at(protocol108Address);
 
 		address.innerHTML = protocol108Address;
 
 		protocol108.version(function(error, result) {
+			console.log(error, result);
 			version.innerText = result.toNumber();
 		});
 
-		protocol108.countdown(function(error, result) {
-			const countdownValue = result.toNumber();
+		update();
 
-			var countdownMinutes = countdownValue / 60 | 0;
-			var countdownSeconds = countdownValue % 60;
+		legacyContent.style.display = "none";
+		web3Content.style.display = "block";
 
-			countdownMinutes = pad(countdownMinutes, 2);
-			countdownSeconds = pad(countdownSeconds, 2);
-
-			if(countdownValue > 0) {
-				countdown.innerHTML = countdownMinutes + ":" + countdownSeconds;
-			}
-			else {
-				countdown.innerHTML = "𓋴𓏲𓍒:𓄿𓏱";
-			}
-
-			protocol108.cycle(function(error, result) {
-				const cycleValue = result.toNumber();
-				state.innerHTML = cycleValue > 0? countdownValue > 0? "ACTIVE": "TERMINATED" : "INACTIVE"
+		function execute(value) {
+			web3.eth.sendTransaction({
+				to: protocol108Address,
+				value: value
+			}, function(error, result) {
+				console.log(error, result);
 			});
-		});
+		}
 
-		protocol108.executor(function(error, result) {
-			executor.innerText = result.toString();
-		});
+		function update() {
+			protocol108.countdown(function(error, result) {
+				console.log(error, result);
+				const countdownValue = result.toNumber();
 
-		web3.eth.getBalance(protocol108Address, function(error, result) {
-			reward.innerHTML = web3.fromWei(result.toNumber(), "ether") + " ETH";
-		});
+				var countdownMinutes = countdownValue / 60 | 0;
+				var countdownSeconds = countdownValue % 60;
 
-		protocol108.volume(function(error, result) {
-			volume.innerHTML = web3.fromWei(result.toNumber(), "ether") + " ETH";
-		});
+				countdownMinutes = pad(countdownMinutes, 2);
+				countdownSeconds = pad(countdownSeconds, 2);
+
+				if(countdownValue > 0) {
+					countdown.innerHTML = countdownMinutes + ":" + countdownSeconds;
+				}
+				else {
+					countdown.innerHTML = "𓋴𓏲𓍒:𓄿𓏱";
+				}
+
+				protocol108.cycle(function(error, result) {
+					console.log(error, result);
+					const cycleValue = result.toNumber();
+					state.innerHTML = cycleValue > 0? countdownValue > 0? "ACTIVE": "TERMINATED" : "INACTIVE"
+				});
+			});
+
+			protocol108.executor(function(error, result) {
+				console.log(error, result);
+				executor.innerText = result.toString();
+			});
+
+			web3.eth.getBalance(protocol108Address, function(error, result) {
+				console.log(error, result);
+				reward.innerHTML = web3.fromWei(result.toNumber(), "ether") + " ETH";
+			});
+
+			protocol108.volume(function(error, result) {
+				console.log(error, result);
+				volume.innerHTML = web3.fromWei(result.toNumber(), "ether") + " ETH";
+			});
+		}
 	}
 	else {
 		// not a web3 browser
-
+		legacyContent.innerHTML = 'Web3 is not supported in your browser. Did you install <a href="https://metamask.io/">MetaMask Plugin?</a>';
 	}
 
 	function pad(num, size) {
