@@ -21,6 +21,9 @@ contract Protocol108 {
 	// zero value means protocol is in initialization state
 	uint public cycle;
 
+	// total value volume passed through
+	uint public volume;
+
 	// creates the protocol
 	function Protocol108() public {
 	}
@@ -77,6 +80,9 @@ contract Protocol108 {
 
 		// update cycle
 		cycle++;
+
+		// update total volume
+		volume += msg.value;
 	}
 
 	// number of seconds left until protocol terminates

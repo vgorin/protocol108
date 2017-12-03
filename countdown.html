@@ -8,7 +8,6 @@
 <table>
 	<tr><td>protocol address:</td><td id="address">N/A</td></tr>
 	<tr><td>protocol version:</td><td id="version">N/A</td></tr>
-	<tr><td>protocol cycle:</td><td id="cycle">N/A</td></tr>
 	<tr><td>protocol state:</td><td id="state">N/A</td></tr>
 	<tr><td>countdown value:</td><td id="countdown">N/A</td></tr>
 	<tr><td>last executor:</td><td id="executor">N/A</td></tr>
@@ -16,7 +15,7 @@
 </table>
 </body>
 <script type="text/javascript">
-	const protocol108Address = "0xDb4D1856A3aa8b6762C0b520DC274Ae77011B4A6";
+	const protocol108Address = "0x177e37b1889B7D235F18d6db7cE70F3d56F3afa8";
 	const protocol108abi = [
 		{
 			"constant": true,
@@ -77,7 +76,6 @@
 	];
 
 	const version = document.getElementById("version");
-	const cycle = document.getElementById("cycle");
 	const state = document.getElementById("state");
 	const countdown = document.getElementById("countdown");
 	const executor = document.getElementById("executor");
@@ -110,7 +108,6 @@
 
 			protocol108.cycle(function(error, result) {
 				const cycleValue = result.toNumber();
-				cycle.innerHTML = cycleValue;
 				state.innerHTML = cycleValue > 0? countdownValue > 0? "ACTIVE": "TERMINATED" : "INACTIVE"
 			});
 		});
