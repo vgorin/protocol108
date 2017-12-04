@@ -33,9 +33,6 @@ contract Protocol108 {
 		// validate protocol state
 		assert(cycle == 0);
 
-		// validate input(s)
-		require(msg.value > 0);
-
 		// update the protocol
 		update();
 	}
@@ -45,9 +42,6 @@ contract Protocol108 {
 		// validate protocol state
 		assert(cycle > 0);
 		assert(offset + length > now);
-
-		// validate input(s)
-		require(msg.value > 0);
 
 		// update the protocol
 		update();
@@ -72,6 +66,9 @@ contract Protocol108 {
 	// updates the protocol state by
 	// updating offset, last executor and cycle count
 	function update() private {
+		// validate input(s)
+		validate(msg.value);
+
 		// update offset (last execution time)
 		offset = now;
 
@@ -83,6 +80,19 @@ contract Protocol108 {
 
 		// update total volume
 		volume += msg.value;
+	}
+
+	// validates the input sequence of numbers
+	// simplest impl: positive value
+	// proper impl: 00..0481516234200..0-like values, where any number of leading/trailing zeroes allowed
+	// calling this function as part of transaction returns true or throws an exception
+	// calling this function as constant returns true or false
+	function validate(uint sequence) public constant returns (bool) {
+		// validate the sequence
+		require(sequence > 0);
+
+		// we won't get here if validation fails
+		return true;
 	}
 
 	// number of seconds left until protocol terminates
