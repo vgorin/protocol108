@@ -109,13 +109,23 @@
 	const web3Content = document.getElementById("web3_content");
 
 	if (typeof web3 !== 'undefined') {
+		// web3 is deprecated, https://github.com/MetaMask/faq/blob/master/detecting_metamask.md#web3-deprecation
+		web3 = new Web3(web3.currentProvider);
+		
 		const protocol108 = web3.eth.contract(protocol108abi).at(protocol108Address);
 
 		address.innerHTML = protocol108Address;
+		console.log("protocol address: " + protocol108Address);
 
 		protocol108.version(function(error, result) {
-			console.log(error, result);
-			version.innerText = result.toNumber();
+			if(error) {
+				console.warn("error getting protocol version: " + error);
+			}
+			else {
+				const protocolVersion = result.toNumber();
+				console.log("protocol version: " + protocolVersion);
+				version.innerText = protocolVersion;
+			}
 		});
 
 		update();
@@ -128,48 +138,83 @@
 				to: protocol108Address,
 				value: value
 			}, function(error, result) {
-				console.log(error, result);
+				if(error) {
+					console.warn("protocol execution error: " + error);
+				}
+				else {
+					console.log("successfully executed the protocol: " + result);
+				}
 			});
 		}
 
 		function update() {
 			protocol108.countdown(function(error, result) {
-				console.log(error, result);
-				const countdownValue = result.toNumber();
-
-				var countdownMinutes = countdownValue / 60 | 0;
-				var countdownSeconds = countdownValue % 60;
-
-				countdownMinutes = pad(countdownMinutes, 2);
-				countdownSeconds = pad(countdownSeconds, 2);
-
-				if(countdownValue > 0) {
-					countdown.innerHTML = countdownMinutes + ":" + countdownSeconds;
+				if(error) {
+					console.warn("error getting countdown value: " + error);
 				}
 				else {
-					countdown.innerHTML = "𓋴𓏲𓍒:𓄿𓏱";
-				}
+					const countdownValue = result.toNumber();
+					console.log("countdown value: " + countdownValue);
 
-				protocol108.cycle(function(error, result) {
-					console.log(error, result);
-					const cycleValue = result.toNumber();
-					state.innerHTML = cycleValue > 0? countdownValue > 0? "ACTIVE": "TERMINATED" : "INACTIVE"
-				});
+					var countdownMinutes = countdownValue / 60 | 0;
+					var countdownSeconds = countdownValue % 60;
+
+					countdownMinutes = pad(countdownMinutes, 2);
+					countdownSeconds = pad(countdownSeconds, 2);
+
+					const countdownFormatted = countdownValue > 0? countdownMinutes + ":" + countdownSeconds: "𓋴𓏲𓍒:𓄿𓏱";
+					console.log("countdown formatted: " + countdownFormatted);
+
+					countdown.innerHTML = countdownFormatted;
+
+					protocol108.cycle(function(error, result) {
+						if(error) {
+							console.warn("error getting cycle value: " + error);
+						}
+						else {
+							const cycleValue = result.toNumber();
+							console.log("cycle count: " + cycleValue);
+
+							const protocolState = cycleValue > 0? countdownValue > 0? "ACTIVE": "TERMINATED" : "INACTIVE"
+							console.log("protocol state: " + protocolState);
+
+							state.innerHTML = protocolState;
+						}
+					});
+				}
 			});
 
 			protocol108.executor(function(error, result) {
-				console.log(error, result);
-				executor.innerText = result.toString();
+				if(error) {
+					console.warn("error getting last executor: " + error);
+				}
+				else {
+					const lastExecutor = result.toString();
+					console.log("last executor: " + lastExecutor);
+					executor.innerText = lastExecutor;
+				}
 			});
 
 			web3.eth.getBalance(protocol108Address, function(error, result) {
-				console.log(error, result);
-				reward.innerHTML = web3.fromWei(result.toNumber(), "ether") + " ETH";
+				if(error) {
+					console.warn("error getting current reward value: " + error);
+				}
+				else {
+					const rewardFormatted = web3.fromWei(result.toNumber(), "ether") + " ETH";
+					console.log("current reward: " + rewardFormatted);
+					reward.innerHTML = rewardFormatted;
+				}
 			});
 
 			protocol108.volume(function(error, result) {
-				console.log(error, result);
-				volume.innerHTML = web3.fromWei(result.toNumber(), "ether") + " ETH";
+				if(error) {
+					console.warn("error getting protocol volume: " + error);
+				}
+				else {
+					const volumeFormatted = web3.fromWei(result.toNumber(), "ether") + " ETH";
+					console.log("protocol volume: " + volumeFormatted);
+					volume.innerHTML = volumeFormatted;
+				}
 			});
 		}
 	}
