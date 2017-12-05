@@ -83,8 +83,9 @@ contract Protocol108 {
 	}
 
 	// validates the input sequence of numbers
-	// simplest impl: positive value
-	// proper impl: 00..0481516234200..0-like values, where any number of leading/trailing zeroes allowed
+	// simplest impl (current): positive value
+	// proper impl (consideration for future versions): 00..0481516234200..0-like values
+	// where any number of leading/trailing zeroes allowed
 	// calling this function as part of transaction returns true or throws an exception
 	// calling this function as constant returns true or false
 	function validate(uint sequence) public constant returns (bool) {
