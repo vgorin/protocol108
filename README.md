@@ -37,13 +37,18 @@ Active protocol terminates once it is not executed for 108 minutes. Terminated p
 
 Last executor can send any value to it to withdraw the reward. Once this happens, protocol state changes back to inactive.
 
-#### Try It Out!
-**Ropsten**: [``0x177e37b1889B7D235F18d6db7cE70F3d56F3afa8``](https://ropsten.etherscan.io/address/0x177e37b1889B7D235F18d6db7cE70F3d56F3afa8)
-
 ### Known Issues
 Issues to address in future releases:
 1. There is no motivation to initiate the protocol, moving its state from inactive into active.
 2. [The numbers (4 8 15 16 23 42)](http://lostpedia.wikia.com/wiki/The_numbers) are not used in the protocol.
+
+## Try It Out!
++ **Ropsten**:
+  + v1: [``0x018b4f94672f015aaA9454B398cb9A50981D88c7``](https://ropsten.etherscan.io/address/0x018b4f94672f015aaA9454B398cb9A50981D88c7)
+  + v2: [``0x9d1F64Df3019eea83D35C350a0FDA1f9563B7cFA``](https://ropsten.etherscan.io/address/0x9d1F64Df3019eea83D35C350a0FDA1f9563B7cFA)
++ **Rinkeby**:
+  + v1: [``0x35df88a99dd25da942d8d99d9344495b6857eec0``](https://rinkeby.etherscan.io/address/0x35Df88a99dd25Da942D8d99D9344495b6857EEC0)
+  + v2: [``0xba7a129933519ab9aae0f97d5456b76e26fbf7f3``](https://rinkeby.etherscan.io/address/0xBa7A129933519ab9aAe0f97d5456B76E26fbf7f3)
 
 ## See Also
 + [Mythology of Lost](https://en.wikipedia.org/wiki/Mythology_of_Lost)
