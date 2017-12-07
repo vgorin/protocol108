@@ -26,12 +26,12 @@ contract Protocol108v2 is Protocol108 {
 		// require ~4.8 Gwei to execute the protocol if
 		// countdown is less then one minute
 		require(
-			c < 60 && ( // ~4.8+ Shannon
+			c < 1 minutes && ( // ~4.8+ Shannon
 				sequence == 4815162342
 				|| sequence == 48151623420
 				|| sequence == 481516234200
 			) || //
-			c < 240 && ( // ~4.8 Szabo
+			c < 4 minutes && ( // ~4.8 Szabo
 				sequence == 4815162342000
 				|| sequence == 48151623420000
 				|| sequence == 481516234200000

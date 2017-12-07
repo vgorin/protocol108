@@ -9,7 +9,7 @@ contract Protocol108 {
 	uint public version = 1;
 
 	// countdown timer reset value
-	uint length = 6480;
+	uint length = 108 minutes;
 
 	// last time protocol was executed
 	uint offset;
