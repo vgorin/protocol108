@@ -43,6 +43,10 @@ Issues to address in future releases:
 2. [The numbers (4 8 15 16 23 42)](http://lostpedia.wikia.com/wiki/The_numbers) are not used in the protocol.
 
 ## Try It Out!
++ **Mainnet**
+  + v1: [``0xC2e330dcB9d0E8edd70425E532F0288088b6d7cB``](https://etherscan.io/address/0xc2e330dcb9d0e8edd70425e532f0288088b6d7cb)
+  + v2: [``0x51eE363006b42962004fBF98b181E0b9621bF360``](https://etherscan.io/address/0x51ee363006b42962004fbf98b181e0b9621bf360)
+
 + **Ropsten**:
   + v1: [``0x018b4f94672f015aaA9454B398cb9A50981D88c7``](https://ropsten.etherscan.io/address/0x018b4f94672f015aaA9454B398cb9A50981D88c7)
   + v2: [``0x9d1F64Df3019eea83D35C350a0FDA1f9563B7cFA``](https://ropsten.etherscan.io/address/0x9d1F64Df3019eea83D35C350a0FDA1f9563B7cFA)
