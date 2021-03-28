@@ -1,3 +1,4 @@
+![Swan Logo](design/swan-160.gif)
 # Protocol 108 (a.k.a. Swan Protocol)
 
 ## Abstract
